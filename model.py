@@ -1,6 +1,7 @@
 """Models for movie ratings app."""
 
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 
 db = SQLAlchemy()
@@ -9,7 +10,7 @@ class User(db.Model):
     """A user."""
 
     __tablename__ = 'users'
-    
+
     user_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
@@ -53,6 +54,10 @@ class Rating(db.Model):
 
     movie = db.relationship('Movie', backref='ratings')
     user = db.relationship('User', backref='ratings')
+        # to print the scores of all the ratings that rating.user has made...
+        # for user_rating in rating.user.ratings:
+        #   print(user_rating.score)
+
 
     def __repr__(self):
         return f'<Rating rating_id={self.rating_id} score={self.score}>'
